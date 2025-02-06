@@ -20,11 +20,10 @@ class Router{
     public function dispatch($url) {
         foreach ($this->routes as $method => $routes) {
             foreach ($routes as $route => $handler) {
-                // تحويل `:id` إلى رقم في التعبير العادي
                 $routeRegex = preg_replace('/:\w+/', '(\d+)', $route);
                 
                 if (preg_match("#^$routeRegex$#", $url, $matches)) {
-                    array_shift($matches); // حذف العنصر الأول (الرابط الأصلي)
+                    array_shift($matches); 
                     list($controller, $action) = $handler;
     
                     $controllerName = 'App\\Controllers\\' . $controller;
@@ -32,14 +31,15 @@ class Router{
                         $controllerInstance = new $controllerName();
                         call_user_func_array([$controllerInstance, $action], $matches);
                     } else {
-                        echo "⚠ خطأ: لم يتم العثور على `{$controllerName}`";
+                        echo "Erreur : le contrôleur `{$controllerName}` n'a pas été trouvé.";
                     }
                     return;
                 }
             }
         }
-        echo "❌ 404 - الصفحة غير موجودة";
+        echo " 404 - Page non trouvée.";
     }
+    
     
 
 
