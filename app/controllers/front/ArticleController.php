@@ -65,7 +65,6 @@ use App\Models\Article;
         }
 
         public function deleteArticle() {
-            // التحقق من وجود الـ id في البيانات المرسلة عبر الـ POST
             $id = $_POST['id'] ?? null;
         
             if (!$id) {
