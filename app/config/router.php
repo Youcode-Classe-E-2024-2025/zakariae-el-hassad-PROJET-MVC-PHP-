@@ -3,10 +3,9 @@
 
 return [
     'GET' => [
-        '/' => ['Front\HomeController', 'index'],
-        // '/article/{id}' => ['ArticleController', 'show'],
+        '/' => ['Front\HomeController', 'showlogin'],
         '/userarticles' => ['Front\ArticleController', 'show'],
-        '/login' => ['Front\HomeController', 'showlogin'],
+        '/home' => ['Front\HomeController', 'index'],
         '/signup' => ['Front\HomeController', 'showsinup'],
         '/admin' => ['Back\DashboardController', 'index'],
         '/logout' => ['Back\UserController', 'logout'],
@@ -18,6 +17,11 @@ return [
         '/create-user' => ['Back\UserController', 'create'],
         '/admin/users/edit/:id' => ['Back\UserController', 'edit'],
         '/login' => ['Back\UserController', 'login'],
+        '/createarticle' => ['Front\ArticleController', 'create'],
+        '/deletearticle' => ['Front\ArticleController', 'deleteArticle'],
+        '/deleteadminarticle' => ['Front\ArticleController', 'deleteAdminArticle'],
+        '/deleteuser' => ['back\UserController', 'deleteUser'],
+
     ]
 ];
 

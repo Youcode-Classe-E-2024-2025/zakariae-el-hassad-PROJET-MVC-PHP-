@@ -32,29 +32,70 @@
         </div>
     </nav>
 
+<!-- Bouton pour ouvrir la modale -->
+<button onclick="openModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+    Ajouter un article
+</button>
+
     <div class="max-w-7xl mx-auto px-4 py-12">
         <h2 class="text-2xl font-bold text-gray-800 mb-8">list article</h2>
         
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    {% for articles in articles %}
+ <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    {% for article in article %} 
         <div class="group relative">
             <div class="relative overflow-hidden rounded-lg border border-gray-300 p-4">
-                <h3 class="text-xl font-bold mb-2">{{ articles.title }}</h3>
-                <p class="text-gray-600">{{ articles.content|slice(0, 100) }}...</p>  
+                <h3 class="text-xl font-bold mb-2">{{ article.title }}</h3> 
+                <p class="text-gray-600">{{ article.content|slice(0, 100) }}...</p>  
             </div>
+<form action="/zakariae-el-hassad-PROJET-MVC-PHP-/public/deletearticle" method="POST">
+    <input type="hidden" name="id" value="{{ article.id }}">
+    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">Delete</button>
+</form>
         </div>
     {% else %}
         <p>Aucun article disponible.</p> 
     {% endfor %}
 </div>
+
 </div>
 
-                    
+
+
+         <!-- Modale -->
+<div id="articleModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Créer un article</h2>
+        
+        <form id="articleForm" action="/zakariae-el-hassad-PROJET-MVC-PHP-/public/createarticle" method="POST" >
+            <label class="block text-gray-700">Titre :</label>
+            <input type="text" name="title" id="title" class="w-full p-2 border rounded mb-4" required>
+
+            <label class="block text-gray-700">Contenu :</label>
+            <textarea name="content" id="content" class="w-full p-2 border rounded mb-4" required></textarea>
+
+            <div class="flex justify-end space-x-2">
+                <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                    Publier
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
     </div>
+<script>
+    function openModal() {
+        document.getElementById("articleModal").classList.remove("hidden");
+    }
 
+    function closeModal() {
+        document.getElementById("articleModal").classList.add("hidden");
+    }
+</script>
+ 
 {% endblock %}
+
 
 </html>
 

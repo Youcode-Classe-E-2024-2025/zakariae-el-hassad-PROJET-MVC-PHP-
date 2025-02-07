@@ -37,10 +37,9 @@
         
 
         public function getAllUsers() {
-            $sql = "SELECT * FROM users";
+            $sql = "SELECT * FROM users WHERE status != 1";  
             return $this->query($sql)->fetchAll();
         }
-
         public function deleteUser($id) {
             $sql = "DELETE FROM users WHERE id = ?";
             return $this->query($sql, [$id]);

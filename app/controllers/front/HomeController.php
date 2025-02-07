@@ -10,14 +10,19 @@ use App\Models\Article;
 class HomeController extends Controller {
     public function index() {
         $articleModel = new Article();
-        $article = $articleModel->getAllArticles();
-
-        if(!$article){
-            echo "Article introuvable.";
+        $articles = $articleModel->getAllArticles();
+    
+        if (!$articles) {
+            echo "Aucun article trouvé.";
             return;
         }
-        View::render('front/home.twig',['article' => $article]);
+        $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] == 1;
+            View::render('front/home.twig', [
+            'articles' => $articles,
+            'isAdmin' => $isAdmin
+        ]);
     }
+    
 
     public function showlogin() {
         View::render('front/login.twig', ['message' => 'Bienvenue sur la page d\'accueil!']);

@@ -7,9 +7,9 @@ use App\Core\Model;
 class Article extends Model{
     protected $table = "articles";
 
-    public function createArticle($titre, $content,$authorId){
-        $sql = "INSERT INTO articles (titre, content , author_id , created_at) Values (? , ? , ? ,NOM())";
-        return $this->query($sql, [$titre, $content , $authorId]);
+    public function createArticle($titre, $content,$authorId , $createdAt){
+        $sql = "INSERT INTO articles (title, content , user_id , created_at) Values (? , ? , ? , ?)";
+        return $this->query($sql, [$titre, $content , $authorId , $createdAt]);
     }
 
     public function getAllArticles(){
@@ -17,9 +17,9 @@ class Article extends Model{
         return $this->query($sql)->fetchAll();
     }
 
-    public function getArticleById($id){
-        $sql = "SELECT * FROM articles WHERE id = ?";
-        return $this->query($sql,[$id])->fetch();
+    public function getArticleById($userId) {
+        $sql = "SELECT * FROM articles WHERE user_id = ?";
+        return $this->query($sql, [$userId])->fetchAll();
     }
 
     public function updateArticle($id, $title, $content) {
@@ -30,7 +30,7 @@ class Article extends Model{
     public function deleteArticle($id) {
         $sql = "DELETE FROM articles WHERE id = ?";
         return $this->query($sql, [$id]);
-    }
+    }    
 
     public function countArticles() {
         $sql = "SELECT COUNT(*) FROM articles";

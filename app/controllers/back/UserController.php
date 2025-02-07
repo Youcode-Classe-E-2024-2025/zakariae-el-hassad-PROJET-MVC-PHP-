@@ -19,8 +19,6 @@ class UserController extends Controller {
             $name = trim($_POST['name']);
             $email = trim($_POST['email']);
             $password = $_POST['password'];
-    
-            // Validation des champs
             if(empty($name) || empty($email) || empty($password)){
                 echo "Tous les champs sont obligatoires.";
                 return;
@@ -49,38 +47,37 @@ class UserController extends Controller {
         View::render('back/signup.twig');
     }
 
-    public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = trim($_POST['email']);
-            $password = $_POST['password'];
-    
-            if (empty($email) || empty($password)) {
-                echo "Email et mot de passe sont obligatoires.";
-                return;
-            }
-    
-            $userModel = new User();
-            $user = $userModel->getUserByEmail($email);
-    
-            if ($user && password_verify($password, $user['password'])) {
-                session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['name'];
-                $_SESSION['user_status'] = $user['status']; 
-    
-                if ($user['status'] == 1) {
-                    header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/admin");
-                } else {
-                    header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/");
-                }
-                exit();
-            } else {
-                echo "Email ou mot de passe incorrect.";
-            }
+   public function login() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = trim($_POST['email']);
+        $password = $_POST['password'];
+
+        if (empty($email) || empty($password)) {
+            echo "Email et mot de passe sont obligatoires.";
+            return;
         }
-    
-        View::render('front/login.twig');
+
+        $userModel = new User();
+        $user = $userModel->getUserByEmail($email);
+
+        if ($user && password_verify($password, $user['password'])) {
+           
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_status'] = $user['status'];
+            if ($user['status'] == 1) {
+                header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/admin");
+            } else {
+                header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/home");
+            }
+            exit();
+        } else {
+            echo "Email ou mot de passe incorrect.";
+        }
     }
+    View::render('front/login.twig');
+}
+
     
     
 
@@ -90,12 +87,27 @@ class UserController extends Controller {
         header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/login");
     }
 
+    public function deleteUser() {
+        $id = $_POST['id'] ?? null;
+    
+        if (!$id) {
+            echo "ID non valide.";
+            return;
+        }
+    
+        $articleModel = new User();
+        $articleModel->deleteUser($id);
+    
+        header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/admin");
+        exit();
+    }
+
     public function logout() {
         session_start();
         session_unset(); 
         session_destroy(); 
     
-        header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/login");
+        header("Location: /zakariae-el-hassad-PROJET-MVC-PHP-/public/");
         exit();
     }
 
