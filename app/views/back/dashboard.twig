@@ -1,7 +1,71 @@
-{% extends "admin_layout.twig" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - {{ title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-{% block content %}
-    <h1>Tableau de bord</h1>
-    <p>Nombre d’utilisateurs : {{ stats.totalUsers }}</p>
-    <p>Nombre d’articles : {{ stats.totalArticles }}</p>
-{% endblock %}
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+        <aside class="w-64 bg-gray-800 text-white flex flex-col">
+            <div class="p-4 text-lg font-bold">Dashboard</div>
+            <nav class="flex-1 px-4 py-2">
+                <a href="/zakariae-el-hassad-PROJET-MVC-PHP-/public/" class="block py-2 px-4 hover:bg-gray-700 rounded">Accueil</a>
+                <a href="/zakariae-el-hassad-PROJET-MVC-PHP-/public/article/:id" class="block py-2 px-4 hover:bg-gray-700 rounded">Articles</a>
+                <a href="/zakariae-el-hassad-PROJET-MVC-PHP-/public/admin" class="block py-2 px-4 hover:bg-gray-700 rounded">Admin</a>
+                <a href="/zakariae-el-hassad-PROJET-MVC-PHP-/public/logout" class="block py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 mt-4 text-center">logout</a>
+            </nav>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="flex-1 p-6">
+            <!-- Navbar -->
+            <header class="bg-white shadow-md mb-6 p-4 rounded-lg flex justify-between items-center">
+                <h2 class="text-2xl font-semibold text-gray-800">Tableau de Bord</h2>
+                <form class="relative">
+                    <input type="search" name="q" class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Rechercher">
+                    <button type="submit" class="absolute right-3 top-2 text-gray-500">
+                        🔍
+                    </button>
+                </form>
+            </header>
+
+            <section>
+                <h2 class="text-xl font-bold mb-4">Articles Récents</h2>
+    
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {% for article in articles %}
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border">
+                            <h3 class="text-lg font-bold mb-2">{{ article.title }}</h3>
+                            <p class="text-gray-600">{{ article.content|slice(0, 100) }}...</p>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">Aucun article disponible.</p> 
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold mb-4">Utilisateurs Récents</h2>
+    
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {% for user in users %}
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border">
+                            <h3 class="text-lg font-bold mb-2">{{ user.name }}</h3>
+                            <p class="text-gray-600">{{ user.email }}</p>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">Aucun utilisateur disponible.</p> 
+                    {% endfor %}
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

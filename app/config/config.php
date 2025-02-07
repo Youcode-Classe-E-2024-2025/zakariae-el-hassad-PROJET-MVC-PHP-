@@ -1,15 +1,17 @@
 <?php 
 
+
 return [
     'database' => [
         'host' => 'localhost',
-        'port' => '5432',
-        'dbname' => 'nom_de_ta_base',
-        'user' => 'utilisateur',
-        'password' => 'mot_de_passe',
+        'port' => '7777',
+        'dbname' => 'project_mvc',  
+        'user' => 'postgres',       
+        'password' => 'zakaria',   
     ],
-        'app' => [
-            'base_url' => '/zakariae-el-hassad-PROJET-MVC-PHP-/public'  // Chouf dirti /public
-        ]
+    'app' => [
+        'base_url' => '/zakariae-el-hassad-PROJET-MVC-PHP-/public'  
+    ]
 ];
+
 

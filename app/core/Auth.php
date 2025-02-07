@@ -1,5 +1,11 @@
 <?php
 
+
+namespace App\Core;
+
+use App\Core\Database;
+use PDO;
+
 class Auth{
     public static function login($email , $password){
         $db = Database::getConnection();

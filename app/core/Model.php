@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Core;
+
+use App\Core\Database;
+use PDO;
+
 class Model {
     protected $pdo ;
 
